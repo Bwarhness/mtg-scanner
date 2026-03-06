@@ -252,6 +252,16 @@ def main():
     output_path = str(Path(image_path).with_stem(Path(image_path).stem + "_annotated").with_suffix(".jpg"))
     annotate_image(image_path, results, output_path)
 
+    # Save results JSON for compare.html
+    json_out = {
+        "version": "v1",
+        "cards": [{"name": c["name"], "price": c["price"], "foil": c["foil_best"], "set": c["set"]} for c in results],
+        "total": round(total, 2),
+    }
+    json_path = Path(__file__).parent / "results_v1.json"
+    json_path.write_text(json.dumps(json_out, indent=2))
+    print(f"Results saved to: {json_path}")
+
 
 if __name__ == "__main__":
     main()

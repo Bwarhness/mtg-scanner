@@ -21,33 +21,20 @@
       gap: 24px;
     }
 
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #fff;
-    }
+    h1 { font-size: 1.4rem; font-weight: 600; color: #fff; }
 
-    .subtitle {
-      font-size: 0.9rem;
-      color: #888;
-      text-align: center;
-    }
+    .subtitle { font-size: 0.9rem; color: #888; text-align: center; }
 
     .legend {
       display: flex;
       gap: 24px;
       font-size: 0.85rem;
       color: #aaa;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-
     .legend span { display: flex; align-items: center; gap: 6px; }
-
-    .dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      display: inline-block;
-    }
-
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
     .dot.red    { background: #ff3232; }
     .dot.yellow { background: #ffc800; }
     .dot.green  { background: #64dc64; }
@@ -62,13 +49,9 @@
       --divider-color: #fff;
       --handle-opacity: 0.9;
     }
+    img-comparison-slider img { width: 100%; display: block; }
 
-    img-comparison-slider img {
-      width: 100%;
-      display: block;
-    }
-
-    .labels {
+    .img-labels {
       display: flex;
       justify-content: space-between;
       width: 100%;
@@ -77,18 +60,101 @@
       color: #666;
       padding: 0 4px;
     }
+
+    /* Card list comparison */
+    .card-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card-list {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-list h2 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px 16px;
+      background: #222;
+      color: #ccc;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    tr { border-bottom: 1px solid #222; }
+    tr:last-child { border-bottom: none; }
+
+    td {
+      padding: 8px 12px;
+      color: #ccc;
+    }
+
+    td.name { width: 60%; }
+    td.price { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    td.set { color: #555; font-size: 0.75rem; }
+
+    .price-high   { color: #ff5555; }
+    .price-mid    { color: #ffc800; }
+    .price-low    { color: #64dc64; }
+
+    .foil-badge {
+      font-size: 0.68rem;
+      background: #2a2a1a;
+      color: #ffc800;
+      border: 1px solid #443;
+      border-radius: 3px;
+      padding: 1px 4px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .fallback-badge {
+      font-size: 0.68rem;
+      background: #1a1a2a;
+      color: #8888ff;
+      border: 1px solid #334;
+      border-radius: 3px;
+      padding: 1px 4px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .total-row td {
+      padding: 10px 12px;
+      background: #222;
+      font-weight: 700;
+      color: #fff;
+      border-top: 2px solid #333;
+    }
+
+    .only-in {
+      background: #1a2a1a;
+    }
+
+    .loading { color: #555; font-size: 0.9rem; padding: 24px; text-align: center; }
   </style>
 </head>
 <body>
 
   <h1>MTG Scanner — v1 vs v2</h1>
-  <p class="subtitle">Drag the slider to compare detections. v1 (left) · v2 with color+type fallback (right)</p>
+  <p class="subtitle">Drag the slider to compare detections · v1 (left) · v2 with color+type fallback (right)</p>
 
   <div class="legend">
     <span><i class="dot red"></i> ≥ $2.00</span>
     <span><i class="dot yellow"></i> ≥ $0.50</span>
     <span><i class="dot green"></i> &lt; $0.50</span>
-    <span style="color:#aaa">— dashed border = identified via fallback</span>
+    <span style="color:#8888ff">■ fallback = identified via color+type</span>
   </div>
 
   <img-comparison-slider>
@@ -96,10 +162,64 @@
     <img slot="second" src="s-l1600_annotated_v2.jpg" alt="v2">
   </img-comparison-slider>
 
-  <div class="labels">
+  <div class="img-labels">
     <span>← v1 (name only)</span>
     <span>v2 (color + type fallback) →</span>
   </div>
+
+  <div class="card-comparison">
+    <div class="card-list" id="list-v1"><p class="loading">Loading v1 results…</p></div>
+    <div class="card-list" id="list-v2"><p class="loading">Loading v2 results…</p></div>
+  </div>
+
+  <script>
+    function priceClass(price) {
+      if (price >= 2.0) return 'price-high';
+      if (price >= 0.5) return 'price-mid';
+      return 'price-low';
+    }
+
+    function renderList(containerId, data, otherNames) {
+      const el = document.getElementById(containerId);
+      const label = data.version === 'v1' ? 'v1 — Name only' : 'v2 — Color + type fallback';
+
+      let rows = data.cards.map(card => {
+        const cls = priceClass(card.price);
+        const onlyHere = !otherNames.has(card.name) ? ' only-in' : '';
+        const foil = card.foil ? '<span class="foil-badge">foil</span>' : '';
+        const fallback = card.fallback ? '<span class="fallback-badge">fallback</span>' : '';
+        return `
+          <tr class="${onlyHere}">
+            <td class="name">${card.name}${foil}${fallback}</td>
+            <td class="price ${cls}">$${card.price.toFixed(2)}</td>
+          </tr>`;
+      }).join('');
+
+      el.innerHTML = `
+        <h2>${label} &mdash; ${data.cards.length} cards</h2>
+        <table>
+          ${rows}
+          <tr class="total-row">
+            <td>Total</td>
+            <td class="price">$${data.total.toFixed(2)}</td>
+          </tr>
+        </table>`;
+    }
+
+    Promise.all([
+      fetch('results_v1.json').then(r => r.json()),
+      fetch('results_v2.json').then(r => r.json()),
+    ]).then(([v1, v2]) => {
+      const v1Names = new Set(v1.cards.map(c => c.name));
+      const v2Names = new Set(v2.cards.map(c => c.name));
+      renderList('list-v1', v1, v2Names);
+      renderList('list-v2', v2, v1Names);
+    }).catch(() => {
+      document.querySelectorAll('.loading').forEach(el => {
+        el.textContent = 'Run scan.py and scan_v2.py first to generate results.';
+      });
+    });
+  </script>
 
 </body>
 </html>

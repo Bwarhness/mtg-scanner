@@ -1,0 +1,96 @@
+{
+  "version": "v1",
+  "cards": [
+    {
+      "name": "Living End",
+      "price": 5.81,
+      "foil": true,
+      "set": "Time Spiral Remastered"
+    },
+    {
+      "name": "Braids, Cabal Minion",
+      "price": 3.24,
+      "foil": true,
+      "set": "Modern Horizons 2"
+    },
+    {
+      "name": "Archpriest of Shadows",
+      "price": 1.79,
+      "foil": true,
+      "set": "March of the Machine"
+    },
+    {
+      "name": "Kemba, Kha Regent",
+      "price": 1.06,
+      "foil": true,
+      "set": "Commander Masters"
+    },
+    {
+      "name": "Crater's Claws",
+      "price": 0.75,
+      "foil": true,
+      "set": "Khans of Tarkir"
+    },
+    {
+      "name": "Light of the Legion",
+      "price": 0.53,
+      "foil": true,
+      "set": "Guilds of Ravnica"
+    },
+    {
+      "name": "Curator of Mysteries",
+      "price": 0.36,
+      "foil": false,
+      "set": "Forgotten Realms Commander"
+    },
+    {
+      "name": "Thryx, the Sudden Storm",
+      "price": 0.35,
+      "foil": true,
+      "set": "Commander Masters"
+    },
+    {
+      "name": "Jaya Ballard, Task Mage",
+      "price": 0.31,
+      "foil": true,
+      "set": "Time Spiral Remastered"
+    },
+    {
+      "name": "Niambi, Esteemed Speaker",
+      "price": 0.31,
+      "foil": true,
+      "set": "Core Set 2021"
+    },
+    {
+      "name": "Chromeshell Crab",
+      "price": 0.28,
+      "foil": false,
+      "set": "Commander 2019"
+    },
+    {
+      "name": "Chandra's Regulator",
+      "price": 0.26,
+      "foil": true,
+      "set": "Core Set 2020"
+    },
+    {
+      "name": "Hypersonic Dragon",
+      "price": 0.21,
+      "foil": false,
+      "set": "Ravnica: Clue Edition"
+    },
+    {
+      "name": "Hour of Eternity",
+      "price": 0.16,
+      "foil": false,
+      "set": "Midnight Hunt Commander"
+    },
+    {
+      "name": "Shivan Dragon",
+      "price": 0.13,
+      "foil": false,
+      "set": "Foundations"
+    }
+  ],
+  "total": 15.55
+}

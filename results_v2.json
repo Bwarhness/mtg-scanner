@@ -1,0 +1,125 @@
+{
+  "version": "v2",
+  "cards": [
+    {
+      "name": "Braids, Cabal Minion",
+      "price": 3.24,
+      "foil": true,
+      "set": "Modern Horizons 2",
+      "fallback": false
+    },
+    {
+      "name": "Archpriest of Shadows",
+      "price": 1.79,
+      "foil": true,
+      "set": "March of the Machine",
+      "fallback": false
+    },
+    {
+      "name": "Kemba, Kha Regent",
+      "price": 1.06,
+      "foil": true,
+      "set": "Commander Masters",
+      "fallback": false
+    },
+    {
+      "name": "Crater's Claws",
+      "price": 0.75,
+      "foil": true,
+      "set": "Khans of Tarkir",
+      "fallback": false
+    },
+    {
+      "name": "Light of the Legion",
+      "price": 0.53,
+      "foil": true,
+      "set": "Guilds of Ravnica",
+      "fallback": false
+    },
+    {
+      "name": "Fallen Angel",
+      "price": 0.53,
+      "foil": true,
+      "set": "Masters 25",
+      "fallback": false
+    },
+    {
+      "name": "Cultist of the Absolute",
+      "price": 0.52,
+      "foil": true,
+      "set": "Commander Legends: Battle for Baldur's Gate",
+      "fallback": false
+    },
+    {
+      "name": "Curator of Mysteries",
+      "price": 0.36,
+      "foil": false,
+      "set": "Forgotten Realms Commander",
+      "fallback": false
+    },
+    {
+      "name": "The Mending of Dominaria",
+      "price": 0.36,
+      "foil": false,
+      "set": "Outlaws of Thunder Junction Commander",
+      "fallback": false
+    },
+    {
+      "name": "Thryx, the Sudden Storm",
+      "price": 0.35,
+      "foil": true,
+      "set": "Commander Masters",
+      "fallback": false
+    },
+    {
+      "name": "Jaya Ballard, Task Mage",
+      "price": 0.31,
+      "foil": true,
+      "set": "Time Spiral Remastered",
+      "fallback": false
+    },
+    {
+      "name": "Niambi, Esteemed Speaker",
+      "price": 0.31,
+      "foil": true,
+      "set": "Core Set 2021",
+      "fallback": false
+    },
+    {
+      "name": "Magmaquake",
+      "price": 0.31,
+      "foil": false,
+      "set": "Forgotten Realms Commander",
+      "fallback": false
+    },
+    {
+      "name": "Chromeshell Crab",
+      "price": 0.28,
+      "foil": false,
+      "set": "Commander 2019",
+      "fallback": false
+    },
+    {
+      "name": "Chandra's Regulator",
+      "price": 0.26,
+      "foil": true,
+      "set": "Core Set 2020",
+      "fallback": false
+    },
+    {
+      "name": "Hypersonic Dragon",
+      "price": 0.21,
+      "foil": false,
+      "set": "Ravnica: Clue Edition",
+      "fallback": false
+    },
+    {
+      "name": "Shivan Dragon",
+      "price": 0.13,
+      "foil": false,
+      "set": "Foundations",
+      "fallback": false
+    }
+  ],
+  "total": 11.3
+}
