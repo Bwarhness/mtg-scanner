@@ -255,7 +255,7 @@ def main():
     # Save results JSON for compare.html
     json_out = {
         "version": "v1",
-        "cards": [{"name": c["name"], "price": c["price"], "foil": c["foil_best"], "set": c["set"]} for c in results],
+        "cards": [{"name": c["name"], "price": c["price"], "foil": c["foil_best"], "set": c["set"], "box": c.get("box")} for c in results],
         "total": round(total, 2),
     }
     json_path = Path(__file__).parent / "results_v1.json"

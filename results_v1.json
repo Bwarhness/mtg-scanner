@@ -2,95 +2,245 @@
   "version": "v1",
   "cards": [
     {
-      "name": "Living End",
-      "price": 5.81,
-      "foil": true,
-      "set": "Time Spiral Remastered"
-    },
-    {
       "name": "Braids, Cabal Minion",
       "price": 3.24,
       "foil": true,
-      "set": "Modern Horizons 2"
+      "set": "Modern Horizons 2",
+      "box": [
+        423,
+        206,
+        712,
+        425
+      ]
     },
     {
       "name": "Archpriest of Shadows",
       "price": 1.79,
       "foil": true,
-      "set": "March of the Machine"
+      "set": "March of the Machine",
+      "box": [
+        0,
+        114,
+        182,
+        303
+      ]
     },
     {
       "name": "Kemba, Kha Regent",
       "price": 1.06,
       "foil": true,
-      "set": "Commander Masters"
+      "set": "Commander Masters",
+      "box": [
+        262,
+        346,
+        562,
+        553
+      ]
+    },
+    {
+      "name": "Lier, Disciple of the Drowned",
+      "price": 0.94,
+      "foil": false,
+      "set": "Tarkir: Dragonstorm Commander",
+      "box": [
+        458,
+        203,
+        716,
+        423
+      ]
     },
     {
       "name": "Crater's Claws",
       "price": 0.75,
       "foil": true,
-      "set": "Khans of Tarkir"
+      "set": "Khans of Tarkir",
+      "box": [
+        680,
+        0,
+        977,
+        145
+      ]
     },
     {
       "name": "Light of the Legion",
       "price": 0.53,
       "foil": true,
-      "set": "Guilds of Ravnica"
+      "set": "Guilds of Ravnica",
+      "box": [
+        128,
+        110,
+        396,
+        335
+      ]
+    },
+    {
+      "name": "Fallen Angel",
+      "price": 0.53,
+      "foil": true,
+      "set": "Masters 25",
+      "box": [
+        392,
+        579,
+        617,
+        763
+      ]
+    },
+    {
+      "name": "Cultist of the Absolute",
+      "price": 0.52,
+      "foil": true,
+      "set": "Commander Legends: Battle for Baldur's Gate",
+      "box": [
+        363,
+        850,
+        646,
+        1000
+      ]
     },
     {
       "name": "Curator of Mysteries",
       "price": 0.36,
       "foil": false,
-      "set": "Forgotten Realms Commander"
+      "set": "Forgotten Realms Commander",
+      "box": [
+        -2,
+        815,
+        231,
+        999
+      ]
     },
     {
       "name": "Thryx, the Sudden Storm",
       "price": 0.35,
       "foil": true,
-      "set": "Commander Masters"
+      "set": "Commander Masters",
+      "box": [
+        583,
+        349,
+        892,
+        519
+      ]
     },
     {
       "name": "Jaya Ballard, Task Mage",
       "price": 0.31,
       "foil": true,
-      "set": "Time Spiral Remastered"
+      "set": "Time Spiral Remastered",
+      "box": [
+        74,
+        381,
+        281,
+        563
+      ]
     },
     {
       "name": "Niambi, Esteemed Speaker",
       "price": 0.31,
       "foil": true,
-      "set": "Core Set 2021"
+      "set": "Core Set 2021",
+      "box": [
+        94,
+        614,
+        396,
+        816
+      ]
+    },
+    {
+      "name": "Magmaquake",
+      "price": 0.31,
+      "foil": false,
+      "set": "Forgotten Realms Commander",
+      "box": [
+        194,
+        861,
+        412,
+        999
+      ]
     },
     {
       "name": "Chromeshell Crab",
       "price": 0.28,
       "foil": false,
-      "set": "Commander 2019"
+      "set": "Commander 2019",
+      "box": [
+        116,
+        21,
+        237,
+        149
+      ]
     },
     {
       "name": "Chandra's Regulator",
       "price": 0.26,
       "foil": true,
-      "set": "Core Set 2020"
+      "set": "Core Set 2020",
+      "box": [
+        492,
+        77,
+        814,
+        298
+      ]
     },
     {
       "name": "Hypersonic Dragon",
       "price": 0.21,
       "foil": false,
-      "set": "Ravnica: Clue Edition"
+      "set": "Ravnica: Clue Edition",
+      "box": [
+        13,
+        31,
+        185,
+        163
+      ]
+    },
+    {
+      "name": "Sphinx of Uthuun",
+      "price": 0.18,
+      "foil": false,
+      "set": "Commander Legends",
+      "box": [
+        29,
+        601,
+        203,
+        746
+      ]
     },
     {
       "name": "Hour of Eternity",
       "price": 0.16,
       "foil": false,
-      "set": "Midnight Hunt Commander"
+      "set": "Midnight Hunt Commander",
+      "box": [
+        33,
+        471,
+        255,
+        608
+      ]
     },
     {
       "name": "Shivan Dragon",
       "price": 0.13,
       "foil": false,
-      "set": "Foundations"
+      "set": "Foundations",
+      "box": [
+        755,
+        663,
+        1000,
+        850
+      ]
+    },
+    {
+      "name": "Goblins",
+      "price": 0.0,
+      "foil": false,
+      "set": "Foundations Front Cards",
+      "box": [
+        487,
+        0,
+        687,
+        117
+      ]
     }
   ],
-  "total": 15.55
+  "total": 12.22
 }
