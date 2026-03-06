@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MTG Scanner — v1 vs v2</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+      gap: 24px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
+    }
+
+    .legend {
+      display: flex;
+      gap: 24px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    .legend span { display: flex; align-items: center; gap: 6px; }
+
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.red    { background: #ff3232; }
+    .dot.yellow { background: #ffc800; }
+    .dot.green  { background: #64dc64; }
+
+    img-comparison-slider {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      --divider-width: 3px;
+      --divider-color: #fff;
+      --handle-opacity: 0.9;
+    }
+
+    img-comparison-slider img {
+      width: 100%;
+      display: block;
+    }
+
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 900px;
+      font-size: 0.8rem;
+      color: #666;
+      padding: 0 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MTG Scanner — v1 vs v2</h1>
+  <p class="subtitle">Drag the slider to compare detections. v1 (left) · v2 with color+type fallback (right)</p>
+
+  <div class="legend">
+    <span><i class="dot red"></i> ≥ $2.00</span>
+    <span><i class="dot yellow"></i> ≥ $0.50</span>
+    <span><i class="dot green"></i> &lt; $0.50</span>
+    <span style="color:#aaa">— dashed border = identified via fallback</span>
+  </div>
+
+  <img-comparison-slider>
+    <img slot="first"  src="s-l1600_annotated.jpg"    alt="v1">
+    <img slot="second" src="s-l1600_annotated_v2.jpg" alt="v2">
+  </img-comparison-slider>
+
+  <div class="labels">
+    <span>← v1 (name only)</span>
+    <span>v2 (color + type fallback) →</span>
+  </div>
+
+</body>
+</html>
