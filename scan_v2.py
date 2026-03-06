@@ -190,6 +190,13 @@ def _card_result(card: dict, fallback: bool) -> dict:
         "set": card.get("set_name", ""),
         "foil_best": usd_foil > usd,
         "fallback": fallback,
+        # Watchlist metadata
+        "type_line": card.get("type_line", ""),
+        "colors": card.get("colors", []),
+        "color_identity": card.get("color_identity", []),
+        "cmc": card.get("cmc", 0),
+        "keywords": card.get("keywords", []),
+        "oracle_text": card.get("oracle_text", ""),
     }
 
 
@@ -333,7 +340,13 @@ def main():
     # Save results JSON for compare.html
     json_out = {
         "version": "v2",
-        "cards": [{"name": c["name"], "price": c["price"], "foil": c["foil_best"], "set": c["set"], "fallback": c.get("fallback", False), "box": c.get("box")} for c in results],
+        "cards": [{
+            "name": c["name"], "price": c["price"], "foil": c["foil_best"],
+            "set": c["set"], "fallback": c.get("fallback", False), "box": c.get("box"),
+            "type_line": c.get("type_line", ""), "colors": c.get("colors", []),
+            "color_identity": c.get("color_identity", []), "cmc": c.get("cmc", 0),
+            "keywords": c.get("keywords", []), "oracle_text": c.get("oracle_text", ""),
+        } for c in results],
         "total": round(total, 2),
     }
     json_path = Path(__file__).parent / "results_v2.json"

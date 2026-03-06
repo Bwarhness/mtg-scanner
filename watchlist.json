@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Zombies",
+    "color": "#00ddaa",
+    "filters": { "type_contains": "Zombie" }
+  },
+  {
+    "label": "Dragons",
+    "color": "#ff6600",
+    "filters": { "type_contains": "Dragon" }
+  },
+  {
+    "label": "Black cards",
+    "color": "#cc88ff",
+    "filters": { "colors_include": "B" }
+  },
+  {
+    "label": "Cheap (CMC 1-2)",
+    "color": "#44aaff",
+    "filters": { "cmc_max": 2, "cmc_min": 1 }
+  },
+  {
+    "label": "Valuable (>$1)",
+    "color": "#ffdd00",
+    "filters": { "price_min": 1.0 }
+  },
+  {
+    "label": "Flying",
+    "color": "#aaddff",
+    "filters": { "keywords_include": "Flying" }
+  }
+]

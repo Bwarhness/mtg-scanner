@@ -38,12 +38,65 @@
     .dot.yellow { background: #ffc800; }
     .dot.green  { background: #64dc64; }
 
+    /* Watchlist */
+    .watchlist-bar {
+      width: 100%;
+      max-width: 900px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .watchlist-bar .wl-label {
+      font-size: 0.78rem;
+      color: #666;
+      margin-right: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .wl-pill {
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1.5px solid;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      user-select: none;
+      background: transparent;
+      font-weight: 600;
+    }
+    .wl-pill:hover { transform: scale(1.05); }
+    .wl-pill.active { color: #111 !important; }
+    .wl-pill .wl-count {
+      font-size: 0.72rem;
+      margin-left: 5px;
+      opacity: 0.75;
+    }
+
+    /* Hits banner */
+    .hits-banner {
+      width: 100%;
+      max-width: 900px;
+      background: #1a220f;
+      border: 1px solid #3a5a1a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: #aaddaa;
+      display: none;
+    }
+    .hits-banner.visible { display: block; }
+    .hits-banner strong { color: #ccffaa; }
+
+    /* Slider */
     .slider-wrap {
       position: relative;
       width: 100%;
       max-width: 900px;
     }
-
     img-comparison-slider {
       width: 100%;
       border-radius: 8px;
@@ -54,7 +107,6 @@
       --handle-opacity: 0.9;
     }
     img-comparison-slider img { width: 100%; display: block; }
-
     #highlight-canvas {
       position: absolute;
       top: 0; left: 0;
@@ -73,6 +125,7 @@
       padding: 0 4px;
     }
 
+    /* Card tables */
     .card-comparison {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -80,28 +133,22 @@
       width: 100%;
       max-width: 900px;
     }
-
-    .card-list {
-      background: #1a1a1a;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
+    .card-list { background: #1a1a1a; border-radius: 8px; overflow: hidden; }
     .card-list h2 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 12px 16px;
-      background: #222;
-      color: #ccc;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 0.9rem; font-weight: 600;
+      padding: 12px 16px; background: #222;
+      color: #ccc; letter-spacing: 0.05em; text-transform: uppercase;
     }
-
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
     tr { border-bottom: 1px solid #222; cursor: pointer; transition: background 0.1s; }
     tr:last-child { border-bottom: none; }
     tr:hover { background: #252525; }
-    tr.active { background: #2a2a1a; outline: 1px solid #ffc800; }
+    tr.active { outline: 1px solid #ffc800; }
+    tr.in-both { background: #1a2218; }
+    tr.in-both:hover { background: #1f2a1e; }
+    tr.only-here { background: #221a10; }
+    tr.only-here:hover { background: #2a2012; }
+    tr.wl-match { outline: 2px solid var(--wl-color, #fff); }
 
     td { padding: 8px 12px; color: #ccc; }
     td.name { width: 60%; }
@@ -111,41 +158,29 @@
     .price-mid  { color: #ffc800; }
     .price-low  { color: #64dc64; }
 
-    .foil-badge {
+    .badge {
       font-size: 0.68rem;
-      background: #2a2a1a; color: #ffc800;
-      border: 1px solid #443; border-radius: 3px;
+      border-radius: 3px;
       padding: 1px 4px; margin-left: 4px; vertical-align: middle;
+      border: 1px solid;
     }
-    .fallback-badge {
-      font-size: 0.68rem;
-      background: #1a1a2a; color: #8888ff;
-      border: 1px solid #334; border-radius: 3px;
-      padding: 1px 4px; margin-left: 4px; vertical-align: middle;
-    }
+    .badge-foil     { background: #2a2a1a; color: #ffc800; border-color: #443; }
+    .badge-fallback { background: #1a1a2a; color: #8888ff; border-color: #334; }
+    .badge-unique   { background: #2a1a0a; color: #ffaa44; border-color: #543; }
+    .badge-wl       { font-size: 0.68rem; border-radius: 3px; padding: 1px 5px; margin-left: 3px; vertical-align: middle; font-weight: 700; }
 
     .total-row td {
-      padding: 10px 12px;
-      background: #222; font-weight: 700; color: #fff;
-      border-top: 2px solid #333;
-      cursor: default;
+      padding: 10px 12px; background: #222; font-weight: 700; color: #fff;
+      border-top: 2px solid #333; cursor: default;
     }
     .total-row:hover { background: #222 !important; }
-
-    /* Cards found in both versions */
-    tr.in-both { background: #1a2218; }
-    tr.in-both:hover { background: #1f2a1e; }
-    /* Cards only found in this version */
-    tr.only-here { background: #221a10; }
-    tr.only-here:hover { background: #2a2012; }
-
     .loading { color: #555; font-size: 0.9rem; padding: 24px; text-align: center; }
   </style>
 </head>
 <body>
 
   <h1>MTG Scanner — v1 vs v2</h1>
-  <p class="subtitle">Drag the slider to compare · Click a card row to highlight it in the image</p>
+  <p class="subtitle">Drag the slider to compare · Click a card row to highlight it · Click a watchlist filter to find matches</p>
 
   <div class="legend">
     <span><i class="dot red"></i> ≥ $2.00</span>
@@ -153,6 +188,13 @@
     <span><i class="dot green"></i> &lt; $0.50</span>
     <span style="color:#8888ff">■ fallback = identified via color+type</span>
   </div>
+
+  <div class="watchlist-bar" id="watchlist-bar">
+    <span class="wl-label">Watchlist:</span>
+    <span class="wl-label" style="color:#444">Loading…</span>
+  </div>
+
+  <div class="hits-banner" id="hits-banner"></div>
 
   <div class="slider-wrap">
     <img-comparison-slider id="slider">
@@ -176,102 +218,151 @@
     const canvas = document.getElementById('highlight-canvas');
     const ctx = canvas.getContext('2d');
     let activeRow = null;
+    let activeWatchlist = null;
+    let allRows = []; // [{tr, card}]
 
+    // ── Canvas helpers ──────────────────────────────────────────────
     function syncCanvas() {
-      const slider = document.getElementById('slider');
-      const rect = slider.getBoundingClientRect();
+      const rect = document.getElementById('slider').getBoundingClientRect();
       canvas.width = rect.width;
       canvas.height = rect.height;
     }
 
-    function priceClass(price) {
-      if (price >= 2.0) return 'price-high';
-      if (price >= 0.5) return 'price-mid';
-      return 'price-low';
-    }
+    function priceClass(p) { return p >= 2 ? 'price-high' : p >= 0.5 ? 'price-mid' : 'price-low'; }
+    function priceColor(p) { return p >= 2 ? '#ff5555' : p >= 0.5 ? '#ffc800' : '#64dc64'; }
 
-    function priceColor(price) {
-      if (price >= 2.0) return '#ff5555';
-      if (price >= 0.5) return '#ffc800';
-      return '#64dc64';
-    }
-
-    function drawHighlight(box, price) {
+    function drawHighlight(box, color) {
       syncCanvas();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (!box || box.length !== 4) return;
-
       const [ymin, xmin, ymax, xmax] = box;
-      const x = xmin / 1000 * canvas.width;
-      const y = ymin / 1000 * canvas.height;
-      const w = (xmax - xmin) / 1000 * canvas.width;
-      const h = (ymax - ymin) / 1000 * canvas.height;
-
-      const color = priceColor(price);
-
-      // Dim the rest
+      const x = xmin / 1000 * canvas.width, y = ymin / 1000 * canvas.height;
+      const w = (xmax - xmin) / 1000 * canvas.width, h = (ymax - ymin) / 1000 * canvas.height;
       ctx.fillStyle = 'rgba(0,0,0,0.55)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Clear the card region
       ctx.clearRect(x - 4, y - 4, w + 8, h + 8);
-
-      // Glow border
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 20;
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 3;
+      ctx.shadowColor = color; ctx.shadowBlur = 20;
+      ctx.strokeStyle = color; ctx.lineWidth = 3;
       ctx.strokeRect(x - 2, y - 2, w + 4, h + 4);
       ctx.shadowBlur = 0;
     }
 
-    function clearHighlight() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    function clearHighlight() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
-    function onRowClick(row, card) {
-      if (activeRow === row) {
-        // Deselect
-        row.classList.remove('active');
+    // ── Row click (card highlight) ──────────────────────────────────
+    function onRowClick(tr, card) {
+      if (activeRow === tr) {
+        tr.classList.remove('active');
         activeRow = null;
         clearHighlight();
       } else {
         if (activeRow) activeRow.classList.remove('active');
-        row.classList.add('active');
-        activeRow = row;
-        drawHighlight(card.box, card.price);
+        tr.classList.add('active');
+        activeRow = tr;
+        drawHighlight(card.box, priceColor(card.price));
       }
     }
 
-    function renderList(containerId, data, otherNames) {
+    // ── Watchlist matching ──────────────────────────────────────────
+    function matchesFilter(card, filters) {
+      if (filters.type_contains !== undefined) {
+        if (!card.type_line.toLowerCase().includes(filters.type_contains.toLowerCase())) return false;
+      }
+      if (filters.type_contains_not !== undefined) {
+        if (card.type_line.toLowerCase().includes(filters.type_contains_not.toLowerCase())) return false;
+      }
+      if (filters.colors_include !== undefined) {
+        const needed = Array.isArray(filters.colors_include) ? filters.colors_include : [filters.colors_include];
+        if (!needed.some(c => (card.color_identity || []).includes(c))) return false;
+      }
+      if (filters.colors_exact !== undefined) {
+        const needed = [...filters.colors_exact].sort().join('');
+        const actual = [...(card.color_identity || [])].sort().join('');
+        if (needed !== actual) return false;
+      }
+      if (filters.cmc_min !== undefined && (card.cmc ?? 0) < filters.cmc_min) return false;
+      if (filters.cmc_max !== undefined && (card.cmc ?? 0) > filters.cmc_max) return false;
+      if (filters.price_min !== undefined && card.price < filters.price_min) return false;
+      if (filters.price_max !== undefined && card.price > filters.price_max) return false;
+      if (filters.keywords_include !== undefined) {
+        const kw = Array.isArray(filters.keywords_include) ? filters.keywords_include : [filters.keywords_include];
+        if (!kw.some(k => (card.keywords || []).map(x => x.toLowerCase()).includes(k.toLowerCase()))) return false;
+      }
+      if (filters.name_contains !== undefined) {
+        if (!card.name.toLowerCase().includes(filters.name_contains.toLowerCase())) return false;
+      }
+      if (filters.oracle_contains !== undefined) {
+        if (!(card.oracle_text || '').toLowerCase().includes(filters.oracle_contains.toLowerCase())) return false;
+      }
+      return true;
+    }
+
+    function applyWatchlist(wlItem) {
+      // Toggle off if already active
+      if (activeWatchlist === wlItem) {
+        activeWatchlist = null;
+        allRows.forEach(({ tr }) => { tr.style.removeProperty('--wl-color'); tr.classList.remove('wl-match'); });
+        document.querySelectorAll('.wl-pill').forEach(p => p.classList.remove('active'));
+        document.getElementById('hits-banner').classList.remove('visible');
+        clearHighlight();
+        return;
+      }
+
+      activeWatchlist = wlItem;
+      document.querySelectorAll('.wl-pill').forEach(p => p.classList.remove('active'));
+      document.querySelector(`.wl-pill[data-label="${wlItem.label}"]`).classList.add('active');
+
+      let hitCount = 0;
+      allRows.forEach(({ tr, card }) => {
+        tr.style.removeProperty('--wl-color');
+        tr.classList.remove('wl-match');
+        if (matchesFilter(card, wlItem.filters)) {
+          tr.style.setProperty('--wl-color', wlItem.color);
+          tr.classList.add('wl-match');
+          hitCount++;
+        }
+      });
+
+      const banner = document.getElementById('hits-banner');
+      if (hitCount > 0) {
+        banner.innerHTML = `Watchlist "<strong>${wlItem.label}</strong>" — <strong>${hitCount}</strong> match${hitCount > 1 ? 'es' : ''} found across both scans`;
+        banner.classList.add('visible');
+      } else {
+        banner.innerHTML = `Watchlist "<strong>${wlItem.label}</strong>" — no matches found`;
+        banner.classList.add('visible');
+      }
+    }
+
+    // ── Render card table ───────────────────────────────────────────
+    function renderList(containerId, data, otherNames, watchlist) {
       const el = document.getElementById(containerId);
       const label = data.version === 'v1' ? 'v1 — Name only' : 'v2 — Color + type fallback';
-
       const table = document.createElement('table');
 
       data.cards.forEach(card => {
         const tr = document.createElement('tr');
-        tr.classList.add(otherNames.has(card.name) ? 'in-both' : 'only-here');
         tr._card = card;
+        tr.classList.add(otherNames.has(card.name) ? 'in-both' : 'only-here');
 
-        const foil = card.foil ? '<span class="foil-badge">foil</span>' : '';
-        const fallback = card.fallback ? '<span class="fallback-badge">fallback</span>' : '';
-        const cls = priceClass(card.price);
-        const uniqueTag = !otherNames.has(card.name)
-          ? '<span class="foil-badge" style="background:#2a1a0a;color:#ffaa44;border-color:#543">unique</span>'
-          : '';
+        const foilBadge     = card.foil     ? '<span class="badge badge-foil">foil</span>' : '';
+        const fallbackBadge = card.fallback  ? '<span class="badge badge-fallback">fallback</span>' : '';
+        const uniqueBadge   = !otherNames.has(card.name) ? '<span class="badge badge-unique">unique</span>' : '';
+
+        // Watchlist badges
+        const wlBadges = watchlist
+          .filter(wl => matchesFilter(card, wl.filters))
+          .map(wl => `<span class="badge badge-wl" style="background:${wl.color}22;color:${wl.color};border:1px solid ${wl.color}66">${wl.label}</span>`)
+          .join('');
 
         tr.innerHTML = `
-          <td class="name">${card.name}${foil}${fallback}${uniqueTag}</td>
-          <td class="price ${cls}">$${card.price.toFixed(2)}</td>`;
+          <td class="name">${card.name}${foilBadge}${fallbackBadge}${uniqueBadge}${wlBadges}</td>
+          <td class="price ${priceClass(card.price)}">$${card.price.toFixed(2)}</td>`;
 
-        if (card.box) {
-          tr.addEventListener('click', () => onRowClick(tr, card));
-        } else {
-          tr.style.cursor = 'default';
-        }
+        if (card.box) tr.addEventListener('click', () => onRowClick(tr, card));
+        else tr.style.cursor = 'default';
 
         table.appendChild(tr);
+        allRows.push({ tr, card });
       });
 
       const totalRow = document.createElement('tr');
@@ -283,26 +374,43 @@
       el.appendChild(table);
     }
 
-    // Keep canvas in sync on resize
-    window.addEventListener('resize', () => {
-      if (activeRow) {
-        const card = activeRow._card;
-        drawHighlight(card?.box, card?.price);
-      } else {
-        syncCanvas();
-      }
-    });
+    // ── Render watchlist pills ──────────────────────────────────────
+    function renderWatchlistBar(watchlist, allCards) {
+      const bar = document.getElementById('watchlist-bar');
+      bar.innerHTML = '<span class="wl-label">Watchlist:</span>';
 
+      watchlist.forEach(wl => {
+        const count = allCards.filter(c => matchesFilter(c, wl.filters)).length;
+        const pill = document.createElement('button');
+        pill.className = 'wl-pill';
+        pill.dataset.label = wl.label;
+        pill.style.color = wl.color;
+        pill.style.borderColor = wl.color;
+        pill.innerHTML = `${wl.label}<span class="wl-count">${count}</span>`;
+        pill.addEventListener('click', () => {
+          pill.style.background = activeWatchlist === wl ? 'transparent' : wl.color;
+          applyWatchlist(wl);
+        });
+        bar.appendChild(pill);
+      });
+    }
+
+    window.addEventListener('resize', syncCanvas);
+
+    // ── Boot ────────────────────────────────────────────────────────
     Promise.all([
       fetch('results_v1.json').then(r => r.json()),
       fetch('results_v2.json').then(r => r.json()),
-    ]).then(([v1, v2]) => {
+      fetch('watchlist.json').then(r => r.json()),
+    ]).then(([v1, v2, watchlist]) => {
       const v1Names = new Set(v1.cards.map(c => c.name));
       const v2Names = new Set(v2.cards.map(c => c.name));
-      renderList('list-v1', v1, v2Names);
-      renderList('list-v2', v2, v1Names);
+      renderList('list-v1', v1, v2Names, watchlist);
+      renderList('list-v2', v2, v1Names, watchlist);
+      const allCards = [...v1.cards, ...v2.cards];
+      renderWatchlistBar(watchlist, allCards);
       syncCanvas();
-    }).catch(() => {
+    }).catch(err => {
       document.querySelectorAll('.loading').forEach(el => {
         el.textContent = 'Run scan.py and scan_v2.py first to generate results.';
       });

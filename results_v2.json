@@ -2,30 +2,27 @@
   "version": "v2",
   "cards": [
     {
-      "name": "Living End",
-      "price": 5.81,
-      "foil": true,
-      "set": "Time Spiral Remastered",
-      "fallback": false,
-      "box": [
-        47,
-        654,
-        252,
-        824
-      ]
-    },
-    {
       "name": "Braids, Cabal Minion",
       "price": 3.24,
       "foil": true,
       "set": "Modern Horizons 2",
       "fallback": false,
       "box": [
-        419,
-        214,
+        402,
+        204,
         720,
-        427
-      ]
+        429
+      ],
+      "type_line": "Legendary Creature \u2014 Human Minion",
+      "colors": [
+        "B"
+      ],
+      "color_identity": [
+        "B"
+      ],
+      "cmc": 4.0,
+      "keywords": [],
+      "oracle_text": "At the beginning of each player's upkeep, that player sacrifices an artifact, creature, or land of their choice."
     },
     {
       "name": "Archpriest of Shadows",
@@ -36,9 +33,22 @@
       "box": [
         0,
         110,
-        212,
-        307
-      ]
+        211,
+        313
+      ],
+      "type_line": "Creature \u2014 Human Warlock",
+      "colors": [
+        "B"
+      ],
+      "color_identity": [
+        "B"
+      ],
+      "cmc": 5.0,
+      "keywords": [
+        "Backup",
+        "Deathtouch"
+      ],
+      "oracle_text": "Backup 1 (When this creature enters, put a +1/+1 counter on target creature. If that's another creature, it gains the following abilities until end of turn.)\nDeathtouch\nWhenever this creature deals combat damage to a player or battle, return target creature card from your graveyard to the battlefield."
     },
     {
       "name": "Kemba, Kha Regent",
@@ -48,10 +58,20 @@
       "fallback": false,
       "box": [
         263,
-        350,
-        552,
-        552
-      ]
+        345,
+        555,
+        549
+      ],
+      "type_line": "Legendary Creature \u2014 Cat Cleric",
+      "colors": [
+        "W"
+      ],
+      "color_identity": [
+        "W"
+      ],
+      "cmc": 3.0,
+      "keywords": [],
+      "oracle_text": "At the beginning of your upkeep, create a 2/2 white Cat creature token for each Equipment attached to Kemba."
     },
     {
       "name": "Crater's Claws",
@@ -60,11 +80,23 @@
       "set": "Khans of Tarkir",
       "fallback": false,
       "box": [
-        681,
+        676,
         0,
-        977,
-        142
-      ]
+        985,
+        146
+      ],
+      "type_line": "Sorcery",
+      "colors": [
+        "R"
+      ],
+      "color_identity": [
+        "R"
+      ],
+      "cmc": 1.0,
+      "keywords": [
+        "Ferocious"
+      ],
+      "oracle_text": "Crater's Claws deals X damage to any target.\nFerocious \u2014 Crater's Claws deals X plus 2 damage instead if you control a creature with power 4 or greater."
     },
     {
       "name": "Light of the Legion",
@@ -73,11 +105,24 @@
       "set": "Guilds of Ravnica",
       "fallback": false,
       "box": [
-        129,
-        115,
-        395,
-        335
-      ]
+        116,
+        110,
+        401,
+        334
+      ],
+      "type_line": "Creature \u2014 Angel",
+      "colors": [
+        "W"
+      ],
+      "color_identity": [
+        "W"
+      ],
+      "cmc": 6.0,
+      "keywords": [
+        "Flying",
+        "Mentor"
+      ],
+      "oracle_text": "Flying\nMentor (Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.)\nWhen this creature dies, put a +1/+1 counter on each white creature you control."
     },
     {
       "name": "Fallen Angel",
@@ -86,11 +131,23 @@
       "set": "Masters 25",
       "fallback": false,
       "box": [
-        395,
-        559,
-        703,
-        762
-      ]
+        386,
+        554,
+        706,
+        765
+      ],
+      "type_line": "Creature \u2014 Angel",
+      "colors": [
+        "B"
+      ],
+      "color_identity": [
+        "B"
+      ],
+      "cmc": 5.0,
+      "keywords": [
+        "Flying"
+      ],
+      "oracle_text": "Flying\nSacrifice a creature: This creature gets +2/+1 until end of turn."
     },
     {
       "name": "Cultist of the Absolute",
@@ -99,24 +156,21 @@
       "set": "Commander Legends: Battle for Baldur's Gate",
       "fallback": false,
       "box": [
-        365,
+        361,
         850,
-        642,
+        641,
         1000
-      ]
-    },
-    {
-      "name": "The Mending of Dominaria",
-      "price": 0.36,
-      "foil": false,
-      "set": "Outlaws of Thunder Junction Commander",
-      "fallback": false,
-      "box": [
-        890,
-        915,
-        997,
-        1000
-      ]
+      ],
+      "type_line": "Legendary Enchantment \u2014 Background",
+      "colors": [
+        "B"
+      ],
+      "color_identity": [
+        "B"
+      ],
+      "cmc": 1.0,
+      "keywords": [],
+      "oracle_text": "Commander creatures you own get +3/+3 and have flying, deathtouch, \"Ward\u2014Pay 3 life,\" and \"At the beginning of your upkeep, sacrifice a creature.\""
     },
     {
       "name": "Curator of Mysteries",
@@ -125,11 +179,25 @@
       "set": "Forgotten Realms Commander",
       "fallback": false,
       "box": [
-        0,
-        813,
-        211,
-        993
-      ]
+        -4,
+        804,
+        219,
+        995
+      ],
+      "type_line": "Creature \u2014 Sphinx",
+      "colors": [
+        "U"
+      ],
+      "color_identity": [
+        "U"
+      ],
+      "cmc": 4.0,
+      "keywords": [
+        "Scry",
+        "Flying",
+        "Cycling"
+      ],
+      "oracle_text": "Flying\nWhenever you cycle or discard another card, scry 1.\nCycling {U} ({U}, Discard this card: Draw a card.)"
     },
     {
       "name": "Thryx, the Sudden Storm",
@@ -138,11 +206,24 @@
       "set": "Commander Masters",
       "fallback": false,
       "box": [
-        587,
-        355,
-        888,
-        517
-      ]
+        581,
+        350,
+        891,
+        519
+      ],
+      "type_line": "Legendary Creature \u2014 Elemental Giant",
+      "colors": [
+        "U"
+      ],
+      "color_identity": [
+        "U"
+      ],
+      "cmc": 5.0,
+      "keywords": [
+        "Flying",
+        "Flash"
+      ],
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\nSpells you cast with mana value 5 or greater cost {1} less to cast and can't be countered."
     },
     {
       "name": "Jaya Ballard, Task Mage",
@@ -151,11 +232,21 @@
       "set": "Time Spiral Remastered",
       "fallback": false,
       "box": [
-        74,
+        73,
         383,
-        314,
+        315,
         584
-      ]
+      ],
+      "type_line": "Legendary Creature \u2014 Human Spellshaper",
+      "colors": [
+        "R"
+      ],
+      "color_identity": [
+        "R"
+      ],
+      "cmc": 3.0,
+      "keywords": [],
+      "oracle_text": "{R}, {T}, Discard a card: Destroy target blue permanent.\n{1}{R}, {T}, Discard a card: Jaya Ballard deals 3 damage to any target. A creature dealt damage this way can't be regenerated this turn.\n{5}{R}{R}, {T}, Discard a card: Jaya Ballard deals 6 damage to each creature and each player."
     },
     {
       "name": "Niambi, Esteemed Speaker",
@@ -164,11 +255,25 @@
       "set": "Core Set 2021",
       "fallback": false,
       "box": [
-        82,
-        630,
-        383,
-        804
-      ]
+        94,
+        617,
+        396,
+        816
+      ],
+      "type_line": "Legendary Creature \u2014 Human Cleric",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "color_identity": [
+        "U",
+        "W"
+      ],
+      "cmc": 2.0,
+      "keywords": [
+        "Flash"
+      ],
+      "oracle_text": "Flash\nWhen Niambi enters, you may return another target creature you control to its owner's hand. If you do, you gain life equal to that creature's mana value.\n{1}{W}{U}, {T}, Discard a legendary card: Draw two cards."
     },
     {
       "name": "Magmaquake",
@@ -177,11 +282,21 @@
       "set": "Forgotten Realms Commander",
       "fallback": false,
       "box": [
-        198,
-        868,
-        417,
+        197,
+        866,
+        401,
         1000
-      ]
+      ],
+      "type_line": "Instant",
+      "colors": [
+        "R"
+      ],
+      "color_identity": [
+        "R"
+      ],
+      "cmc": 2.0,
+      "keywords": [],
+      "oracle_text": "Magmaquake deals X damage to each creature without flying and each planeswalker."
     },
     {
       "name": "Chromeshell Crab",
@@ -190,11 +305,23 @@
       "set": "Commander 2019",
       "fallback": false,
       "box": [
-        128,
+        116,
         0,
-        313,
-        144
-      ]
+        421,
+        150
+      ],
+      "type_line": "Creature \u2014 Crab Beast",
+      "colors": [
+        "U"
+      ],
+      "color_identity": [
+        "U"
+      ],
+      "cmc": 5.0,
+      "keywords": [
+        "Morph"
+      ],
+      "oracle_text": "Morph {4}{U} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, you may exchange control of target creature you control and target creature an opponent controls."
     },
     {
       "name": "Chandra's Regulator",
@@ -203,11 +330,21 @@
       "set": "Core Set 2020",
       "fallback": false,
       "box": [
-        503,
-        81,
-        811,
-        290
-      ]
+        492,
+        77,
+        810,
+        297
+      ],
+      "type_line": "Legendary Artifact",
+      "colors": [
+        "R"
+      ],
+      "color_identity": [
+        "R"
+      ],
+      "cmc": 2.0,
+      "keywords": [],
+      "oracle_text": "Whenever you activate a loyalty ability of a Chandra planeswalker, you may pay {1}. If you do, copy that ability. You may choose new targets for the copy.\n{1}, {T}, Discard a Mountain card or a red card: Draw a card."
     },
     {
       "name": "Hypersonic Dragon",
@@ -216,24 +353,26 @@
       "set": "Ravnica: Clue Edition",
       "fallback": false,
       "box": [
-        17,
-        31,
-        195,
-        171
-      ]
-    },
-    {
-      "name": "Sphinx of Uthuun",
-      "price": 0.18,
-      "foil": false,
-      "set": "Commander Legends",
-      "fallback": false,
-      "box": [
-        0,
-        597,
+        7,
+        33,
         203,
-        735
-      ]
+        169
+      ],
+      "type_line": "Creature \u2014 Dragon",
+      "colors": [
+        "R",
+        "U"
+      ],
+      "color_identity": [
+        "R",
+        "U"
+      ],
+      "cmc": 5.0,
+      "keywords": [
+        "Flying",
+        "Haste"
+      ],
+      "oracle_text": "Flying, haste\nYou may cast sorcery spells as though they had flash. (You may cast them any time you could cast an instant.)"
     },
     {
       "name": "Hour of Eternity",
@@ -242,11 +381,21 @@
       "set": "Midnight Hunt Commander",
       "fallback": false,
       "box": [
-        32,
-        477,
-        269,
-        610
-      ]
+        33,
+        473,
+        308,
+        608
+      ],
+      "type_line": "Sorcery",
+      "colors": [
+        "U"
+      ],
+      "color_identity": [
+        "U"
+      ],
+      "cmc": 3.0,
+      "keywords": [],
+      "oracle_text": "Exile X target creature cards from your graveyard. For each card exiled this way, create a token that's a copy of that card, except it's a 4/4 black Zombie."
     },
     {
       "name": "Shivan Dragon",
@@ -255,12 +404,24 @@
       "set": "Foundations",
       "fallback": false,
       "box": [
-        758,
+        753,
         663,
         1000,
-        848
-      ]
+        856
+      ],
+      "type_line": "Creature \u2014 Dragon",
+      "colors": [
+        "R"
+      ],
+      "color_identity": [
+        "R"
+      ],
+      "cmc": 6.0,
+      "keywords": [
+        "Flying"
+      ],
+      "oracle_text": "Flying\n{R}: This creature gets +1/+0 until end of turn."
     }
   ],
-  "total": 17.45
+  "total": 11.1
 }
