@@ -168,8 +168,10 @@ def lookup_price(name: str, color: str = "", card_type: str = "") -> dict | None
         if r.status_code == 200:
             data = r.json()
             cards = data.get("data", [])
-            if cards:
-                return _card_result(cards[0], fallback=True)
+            # Pick the first result that still shares at least one word with our query
+            for candidate in cards:
+                if name_similarity(name, candidate["name"]) >= 0.2:
+                    return _card_result(candidate, fallback=True)
     except Exception:
         pass
 
