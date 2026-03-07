@@ -6,6 +6,8 @@ import base64
 import json
 import os
 import re
+import time
+import threading
 import requests
 from openai import OpenAI
 from json_repair import repair_json
@@ -36,6 +38,21 @@ Example output:
 ]"""
 
 MODEL = "google/gemini-3-flash-preview"
+
+SCRYFALL_HEADERS = {"User-Agent": "MTGScanner/1.0", "Accept": "application/json"}
+# Scryfall rate limit: ~10 req/sec. Use a lock + delay to stay safe across threads.
+_scryfall_lock = threading.Lock()
+_scryfall_last_call = 0.0
+
+def _scryfall_get(url: str, params: dict) -> requests.Response:
+    global _scryfall_last_call
+    with _scryfall_lock:
+        elapsed = time.monotonic() - _scryfall_last_call
+        if elapsed < 0.1:
+            time.sleep(0.1 - elapsed)
+        r = requests.get(url, params=params, headers=SCRYFALL_HEADERS, timeout=5)
+        _scryfall_last_call = time.monotonic()
+    return r
 
 COLOR_MAP = {
     "white": "W", "blue": "U", "black": "B", "red": "R", "green": "G",
@@ -128,22 +145,14 @@ def lookup_price(name: str, color: str = "", card_type: str = "", set_code: str 
         params: dict = {"fuzzy": name}
         if set_code:
             params["set"] = set_code
-        r = requests.get(
-            "https://api.scryfall.com/cards/named",
-            params=params,
-            timeout=5,
-        )
+        r = _scryfall_get("https://api.scryfall.com/cards/named", params)
         if r.status_code == 200:
             card = r.json()
             if name_similarity(name, card["name"]) >= 0.3:
                 return _card_result(card, fallback=False)
         # If set-specific lookup failed, retry without set constraint
-        elif set_code and r.status_code != 200:
-            r = requests.get(
-                "https://api.scryfall.com/cards/named",
-                params={"fuzzy": name},
-                timeout=5,
-            )
+        if set_code and r.status_code != 200:
+            r = _scryfall_get("https://api.scryfall.com/cards/named", {"fuzzy": name})
             if r.status_code == 200:
                 card = r.json()
                 if name_similarity(name, card["name"]) >= 0.3:
@@ -159,11 +168,7 @@ def lookup_price(name: str, color: str = "", card_type: str = "", set_code: str 
         query = build_scryfall_query(name, color, card_type)
         if not query:
             return None
-        r = requests.get(
-            "https://api.scryfall.com/cards/search",
-            params={"q": query, "order": "usd", "dir": "desc"},
-            timeout=5,
-        )
+        r = _scryfall_get("https://api.scryfall.com/cards/search", {"q": query, "order": "usd", "dir": "desc"})
         if r.status_code == 200:
             data = r.json()
             cards = data.get("data", [])
@@ -204,13 +209,21 @@ def scan_image(image_bytes: bytes, content_type: str = "image/jpeg") -> dict:
     results = []
     not_found = []
 
-    for item in detected:
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    def fetch(item):
         card = lookup_price(item["name"], item.get("color", ""), item.get("type", ""), item.get("set"))
-        if card:
-            card["box"] = item.get("box")
-            results.append(card)
-        else:
-            not_found.append(item["name"])
+        return item, card
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {executor.submit(fetch, item): item for item in detected}
+        for future in as_completed(futures):
+            item, card = future.result()
+            if card:
+                card["box"] = item.get("box")
+                results.append(card)
+            else:
+                not_found.append(item["name"])
 
     # Deduplicate by resolved card name
     seen = {}
