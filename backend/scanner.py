@@ -6,11 +6,10 @@ import base64
 import json
 import os
 import re
-import time
-import threading
 import requests
 from openai import OpenAI
 from json_repair import repair_json
+import bulk_data
 
 
 PROMPT = """You are analyzing an image of Magic: The Gathering cards piled together.
@@ -38,21 +37,6 @@ Example output:
 ]"""
 
 MODEL = "google/gemini-3-flash-preview"
-
-SCRYFALL_HEADERS = {"User-Agent": "MTGScanner/1.0", "Accept": "application/json"}
-# Scryfall rate limit: ~10 req/sec. Use a lock + delay to stay safe across threads.
-_scryfall_lock = threading.Lock()
-_scryfall_last_call = 0.0
-
-def _scryfall_get(url: str, params: dict) -> requests.Response:
-    global _scryfall_last_call
-    with _scryfall_lock:
-        elapsed = time.monotonic() - _scryfall_last_call
-        if elapsed < 0.1:
-            time.sleep(0.1 - elapsed)
-        r = requests.get(url, params=params, headers=SCRYFALL_HEADERS, timeout=5)
-        _scryfall_last_call = time.monotonic()
-    return r
 
 COLOR_MAP = {
     "white": "W", "blue": "U", "black": "B", "red": "R", "green": "G",
@@ -127,79 +111,11 @@ def name_similarity(a: str, b: str) -> float:
     return len(a_words & b_words) / max(len(a_words), len(b_words))
 
 
-def build_scryfall_query(name: str, color: str, card_type: str) -> str:
-    parts = []
-    for word in name.split():
-        if len(word) > 2:
-            parts.append(f'name:"{word}"')
-    if color and color != "M":
-        parts.append(f"c:{color.lower()}")
-    if card_type:
-        parts.append(f"t:{card_type}")
-    return " ".join(parts)
-
-
 def lookup_price(name: str, color: str = "", card_type: str = "", set_code: str | None = None) -> dict | None:
-    # Primary: fuzzy name match, preferring detected set if available
-    try:
-        params: dict = {"fuzzy": name}
-        if set_code:
-            params["set"] = set_code
-        r = _scryfall_get("https://api.scryfall.com/cards/named", params)
-        if r.status_code == 200:
-            card = r.json()
-            if name_similarity(name, card["name"]) >= 0.3:
-                return _card_result(card, fallback=False)
-        # If set-specific lookup failed, retry without set constraint
-        if set_code and r.status_code != 200:
-            r = _scryfall_get("https://api.scryfall.com/cards/named", {"fuzzy": name})
-            if r.status_code == 200:
-                card = r.json()
-                if name_similarity(name, card["name"]) >= 0.3:
-                    return _card_result(card, fallback=False)
-    except Exception:
-        pass
-
-    # Fallback: search with color + type + partial name words
-    if not color and not card_type:
-        return None
-
-    try:
-        query = build_scryfall_query(name, color, card_type)
-        if not query:
-            return None
-        r = _scryfall_get("https://api.scryfall.com/cards/search", {"q": query, "order": "usd", "dir": "desc"})
-        if r.status_code == 200:
-            data = r.json()
-            cards = data.get("data", [])
-            for candidate in cards:
-                if name_similarity(name, candidate["name"]) >= 0.2:
-                    return _card_result(candidate, fallback=True)
-    except Exception:
-        pass
-
-    return None
-
-
-def _card_result(card: dict, fallback: bool) -> dict:
-    prices = card.get("prices", {})
-    usd = float(prices.get("usd") or 0)
-    usd_foil = float(prices.get("usd_foil") or 0)
-    return {
-        "name": card["name"],
-        "price": max(usd, usd_foil),
-        "usd": usd,
-        "usd_foil": usd_foil,
-        "set": card.get("set_name", ""),
-        "foil_best": usd_foil > usd,
-        "fallback": fallback,
-        "type_line": card.get("type_line", ""),
-        "colors": card.get("colors", []),
-        "color_identity": card.get("color_identity", []),
-        "cmc": card.get("cmc", 0),
-        "keywords": card.get("keywords", []),
-        "oracle_text": card.get("oracle_text", ""),
-    }
+    card = bulk_data.lookup_card(name, set_code)
+    if card:
+        return card
+    return bulk_data.lookup_card_fuzzy(name, color, card_type)
 
 
 def scan_image(image_bytes: bytes, content_type: str = "image/jpeg") -> dict:

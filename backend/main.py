@@ -1,9 +1,18 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+import bulk_data
 from scanner import scan_image
 
-app = FastAPI(title="MTG Card Scanner API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    bulk_data.init()  # Download + index Scryfall bulk data at startup
+    yield
+
+
+app = FastAPI(title="MTG Card Scanner API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
