@@ -114,10 +114,25 @@ def _build_index():
     _index_ready.set()
 
 
+def _refresh_loop():
+    """Background thread: re-download and rebuild index every 24 hours."""
+    while True:
+        time.sleep(CACHE_MAX_AGE)
+        print("[bulk_data] 24h refresh triggered...")
+        try:
+            _download_bulk_data()
+            _build_index()
+        except Exception as e:
+            print(f"[bulk_data] Refresh failed: {e}")
+
+
 def init():
-    """Download (if needed) and build the index. Call once at startup."""
+    """Download (if needed), build the index, and start the auto-refresh thread."""
     _download_bulk_data()
     _build_index()
+    t = threading.Thread(target=_refresh_loop, daemon=True)
+    t.start()
+    print("[bulk_data] Auto-refresh thread started (every 24h)")
 
 
 def _name_similarity(a: str, b: str) -> float:
