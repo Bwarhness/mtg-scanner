@@ -20,18 +20,19 @@ For each card, return a JSON object with exactly these keys:
 - "name": the card name as a string (include whatever text you can read from the name bar)
 - "color": the card's color as a single letter or combination: W (white), U (blue), B (black), R (red), G (green), M (multicolor), C (colorless/artifact)
 - "type": the card's primary type as a lowercase string: creature, sorcery, instant, enchantment, artifact, planeswalker, or land
+- "set": the 3-letter set code printed below the set symbol on the card (e.g. "DOM", "MH3", "LTR"). Use null if you cannot read it clearly.
 - "box": the bounding box as [ymin, xmin, ymax, xmax], all integers from 0 to 1000
 
 Strict rules:
 - Return a single JSON array, one object per card
 - Each card must be its own separate object — never merge two cards into one entry
-- Use only the keys "name", "color", "type", and "box" — no other keys
+- Use only the keys "name", "color", "type", "set", and "box" — no other keys
 - No explanation, no markdown, no text outside the JSON array
 
 Example output:
 [
-  {"name": "Counterspell", "color": "U", "type": "instant", "box": [120, 50, 480, 350]},
-  {"name": "Cabal Minion", "color": "B", "type": "creature", "box": [500, 200, 850, 600]}
+  {"name": "Counterspell", "color": "U", "type": "instant", "set": "TSR", "box": [120, 50, 480, 350]},
+  {"name": "Cabal Minion", "color": "B", "type": "creature", "set": null, "box": [500, 200, 850, 600]}
 ]"""
 
 MODEL = "google/gemini-3-flash-preview"
@@ -94,8 +95,9 @@ def get_cards(image_bytes: bytes, content_type: str = "image/jpeg") -> list[dict
         box = item.get("box") or item.get("box_2d")
         color = normalize_color(item.get("color", ""))
         card_type = (item.get("type") or "").lower().strip()
+        set_code = (item.get("set") or "").strip().lower() or None
         if name and box and not any(name.startswith(t) for t in TYPE_PREFIXES):
-            results.append({"name": name, "color": color, "type": card_type, "box": box})
+            results.append({"name": name, "color": color, "type": card_type, "set": set_code, "box": box})
 
     return results
 
@@ -120,18 +122,32 @@ def build_scryfall_query(name: str, color: str, card_type: str) -> str:
     return " ".join(parts)
 
 
-def lookup_price(name: str, color: str = "", card_type: str = "") -> dict | None:
-    # Primary: fuzzy name match
+def lookup_price(name: str, color: str = "", card_type: str = "", set_code: str | None = None) -> dict | None:
+    # Primary: fuzzy name match, preferring detected set if available
     try:
+        params: dict = {"fuzzy": name}
+        if set_code:
+            params["set"] = set_code
         r = requests.get(
             "https://api.scryfall.com/cards/named",
-            params={"fuzzy": name},
+            params=params,
             timeout=5,
         )
         if r.status_code == 200:
             card = r.json()
             if name_similarity(name, card["name"]) >= 0.3:
                 return _card_result(card, fallback=False)
+        # If set-specific lookup failed, retry without set constraint
+        elif set_code and r.status_code != 200:
+            r = requests.get(
+                "https://api.scryfall.com/cards/named",
+                params={"fuzzy": name},
+                timeout=5,
+            )
+            if r.status_code == 200:
+                card = r.json()
+                if name_similarity(name, card["name"]) >= 0.3:
+                    return _card_result(card, fallback=False)
     except Exception:
         pass
 
@@ -189,7 +205,7 @@ def scan_image(image_bytes: bytes, content_type: str = "image/jpeg") -> dict:
     not_found = []
 
     for item in detected:
-        card = lookup_price(item["name"], item.get("color", ""), item.get("type", ""))
+        card = lookup_price(item["name"], item.get("color", ""), item.get("type", ""), item.get("set"))
         if card:
             card["box"] = item.get("box")
             results.append(card)
