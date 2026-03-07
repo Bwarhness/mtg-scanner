@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Card } from "../types";
 import { WatchlistRule } from "../types/watchlist";
+import { useDeckStore } from "../app/store/deckStore";
 
 interface CardListProps {
   cards: Card[];
@@ -24,6 +25,8 @@ export default function CardList({
   watchlistMatches,
   notFound,
 }: CardListProps) {
+  const activeDeckCards = useDeckStore((s) => s.getActiveDeckCards());
+
   const sortedCards = useMemo(
     () => [...cards].sort((a, b) => b.price - a.price),
     [cards]
@@ -46,6 +49,7 @@ export default function CardList({
       const isSelected = selectedCardName === item.name;
       const priceColor = getPriceColor(item.price);
       const rules = watchlistMatches.get(item.name) || [];
+      const isNeeded = activeDeckCards.has(item.name.toLowerCase());
 
       return (
         <TouchableOpacity
@@ -69,6 +73,11 @@ export default function CardList({
             </View>
             <View style={{ alignItems: "flex-end" }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                {isNeeded && (
+                  <View style={{ backgroundColor: "#ffd700", paddingHorizontal: 5, paddingVertical: 2, borderRadius: 3 }}>
+                    <Text style={{ color: "#000", fontSize: 9, fontWeight: "bold" }}>NEED</Text>
+                  </View>
+                )}
                 {item.fallback && (
                   <View
                     style={{

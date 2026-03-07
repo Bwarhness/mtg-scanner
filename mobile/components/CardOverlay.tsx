@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { View, Image, Text, LayoutChangeEvent } from "react-native";
 import { Card } from "../types";
 import { WatchlistRule } from "../types/watchlist";
+import { useDeckStore } from "../app/store/deckStore";
 
 interface CardOverlayProps {
   cards: Card[];
@@ -30,6 +31,7 @@ export default function CardOverlay({
 }: CardOverlayProps) {
   const [displayW, setDisplayW] = useState(0);
   const [displayH, setDisplayH] = useState(0);
+  const activeDeckCards = useDeckStore((s) => s.getActiveDeckCards());
 
   const handleLayout = useCallback(
     (e: LayoutChangeEvent) => {
@@ -98,6 +100,7 @@ export default function CardOverlay({
               const priceColor = getPriceColor(card.price);
               const boxColor = card.fallback ? "#ff9600" : priceColor;
               const isSelected = selectedCard === card.name;
+              const isNeeded = activeDeckCards.has(card.name.toLowerCase());
               const rules = watchlistMatches.get(card.name) || [];
 
               return (
@@ -130,6 +133,12 @@ export default function CardOverlay({
                       {card.fallback ? "? " : ""}{card.name} ${card.price.toFixed(2)}
                     </Text>
                   </View>
+                  {/* NEED badge */}
+                  {isNeeded && (
+                    <View style={{ position: "absolute", top: -20, right: 0, backgroundColor: "#ffd700", paddingHorizontal: 4, paddingVertical: 1, borderRadius: 2 }}>
+                      <Text style={{ color: "#000", fontSize: 9, fontWeight: "bold" }}>NEED</Text>
+                    </View>
+                  )}
                   {/* Watchlist dots */}
                   {rules.length > 0 && (
                     <View style={{ position: "absolute", top: -8, left: 0, flexDirection: "row", gap: 2 }}>

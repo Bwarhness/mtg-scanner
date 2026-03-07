@@ -1,8 +1,13 @@
 import "../global.css";
+import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useDeckStore } from "./store/deckStore";
 
 export default function RootLayout() {
+  const loadDecks = useDeckStore((s) => s.loadDecks);
+  useEffect(() => { loadDecks(); }, []);
+
   return (
     <>
       <StatusBar style="light" />
