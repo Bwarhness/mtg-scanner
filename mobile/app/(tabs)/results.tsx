@@ -98,8 +98,30 @@ export default function ResultsScreen() {
     }
   }
 
+  const fallbackCount = results.cards.filter((c) => c.fallback).length;
+  const showFallbackBanner = fallbackCount > 0 && !dismissedAlerts.has("__fallback__");
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#0a0a0a" }}>
+      {/* Fallback/guessed cards warning */}
+      {showFallbackBanner && (
+        <TouchableOpacity
+          onPress={() => dismissAlert("__fallback__")}
+          style={{
+            backgroundColor: "#ff9600",
+            paddingHorizontal: 12,
+            paddingVertical: 8,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "#000", fontWeight: "bold", fontSize: 13 }}>
+            ⚠ {fallbackCount} card{fallbackCount > 1 ? "s" : ""} were estimated — verify these
+          </Text>
+          <Text style={{ color: "#000", fontSize: 16, fontWeight: "bold" }}>x</Text>
+        </TouchableOpacity>
+      )}
       {/* Watchlist alert banners */}
       {alertBanners.length > 0 && (
         <View>

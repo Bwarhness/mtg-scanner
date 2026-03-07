@@ -96,6 +96,7 @@ export default function CardOverlay({
               const w = x2 - x1;
               const h = y2 - y1;
               const priceColor = getPriceColor(card.price);
+              const boxColor = card.fallback ? "#ff9600" : priceColor;
               const isSelected = selectedCard === card.name;
               const rules = watchlistMatches.get(card.name) || [];
 
@@ -108,8 +109,8 @@ export default function CardOverlay({
                     top: y1,
                     width: w,
                     height: h,
-                    borderColor: isSelected ? "#ffffff" : priceColor,
-                    borderWidth: isSelected ? 3 : card.fallback ? 2 : 3,
+                    borderColor: isSelected ? "#ffffff" : boxColor,
+                    borderWidth: 3,
                     borderStyle: card.fallback ? "dashed" : "solid",
                   }}
                 >
@@ -119,14 +120,14 @@ export default function CardOverlay({
                       position: "absolute",
                       top: -20,
                       left: 0,
-                      backgroundColor: isSelected ? "#ffffff" : priceColor,
+                      backgroundColor: isSelected ? "#ffffff" : boxColor,
                       paddingHorizontal: 3,
                       paddingVertical: 1,
                       borderRadius: 2,
                     }}
                   >
                     <Text style={{ color: "#000", fontSize: 9, fontWeight: "bold" }} numberOfLines={1}>
-                      {card.name} ${card.price.toFixed(2)}
+                      {card.fallback ? "? " : ""}{card.name} ${card.price.toFixed(2)}
                     </Text>
                   </View>
                   {/* Watchlist dots */}

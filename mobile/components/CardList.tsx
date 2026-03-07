@@ -51,11 +51,13 @@ export default function CardList({
         <TouchableOpacity
           onPress={() => handlePress(item.name)}
           style={{
-            backgroundColor: isSelected ? "#2a2a2a" : "transparent",
+            backgroundColor: isSelected ? "#2a2a2a" : item.fallback ? "rgba(255,150,0,0.08)" : "transparent",
             paddingHorizontal: 12,
             paddingVertical: 10,
             borderBottomWidth: 1,
             borderBottomColor: "#222",
+            borderLeftWidth: item.fallback ? 3 : 0,
+            borderLeftColor: "#ff9600",
           }}
         >
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -68,7 +70,16 @@ export default function CardList({
             <View style={{ alignItems: "flex-end" }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                 {item.fallback && (
-                  <Text style={{ color: "#888", fontSize: 12 }}>~</Text>
+                  <View
+                    style={{
+                      backgroundColor: "#ff9600",
+                      paddingHorizontal: 5,
+                      paddingVertical: 2,
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text style={{ color: "#000", fontSize: 9, fontWeight: "bold" }}>GUESSED</Text>
+                  </View>
                 )}
                 {item.foil && (
                   <View
